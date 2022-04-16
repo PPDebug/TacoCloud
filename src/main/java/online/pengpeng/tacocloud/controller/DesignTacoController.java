@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import online.pengpeng.tacocloud.entity.Taco;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 import online.pengpeng.tacocloud.entity.Ingredient;
 import online.pengpeng.tacocloud.entity.Ingredient.Type;
+
+import javax.validation.Valid;
 
 /**
  * @author pengpeng
@@ -47,10 +50,14 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(Taco design) {
+    public String processDesign(Model model, @Valid Taco design, Errors errors) {
+        if (errors.hasErrors()){
+            return "design";
+//            return showDesignFrom(model);
+        }
         // 保存taco设计方案...（之后添加）
         log.info("Processing design: " + design);
-        return "redirect:/orders/current";
+        return "redirect:/orders/orderForm";
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type){
