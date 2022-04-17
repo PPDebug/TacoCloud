@@ -19,13 +19,13 @@ git checkout chapter1  # 切换到chapter1标签对应的版本
 
 **第一部分 Spring基础** 🧱
 * [x] [chapter1 spring起步](docs/chapter1.md) 
-* [x] [chapter2 开发Web应用](docs/chapter2.md) 🚩目前位于这里，继续加油哦💪
-  
-  **本章内容**
-  * 在浏览器中展现模型数据
-  * 处理和校验表单输入
-  * 选择视图模板
-* [ ] [chapter3 使用数据]
+* [x] [chapter2 开发Web应用](docs/chapter2.md) 
+* [ ] [chapter3 使用数据](docs/chapter3.md) 🚩目前位于这里，继续加油哦💪
+> **本章内容**
+> * 使用Spring 的jdbcTemplate
+> * 使用SimpleJdbcInsert插入数据
+> * 使用SpringData声明JPA repository
+
 * [ ] [chapter4 保护Spring]
 * [ ] [chapter5 使用配置属性]
 

@@ -1,8 +1,8 @@
 # 第三章 使用数据
 
-> 使用Spring 的jdbcTemplate
-> 使用SimpleJ都不错Insert插入数据
-> 使用SpringData声明JPA repository
+> * 使用Spring 的jdbcTemplate
+> * 使用SimpleJdbcInsert插入数据
+> * 使用SpringData声明JPA repository
 
 ## 1️⃣使用JDBC读取和写入数据
 
