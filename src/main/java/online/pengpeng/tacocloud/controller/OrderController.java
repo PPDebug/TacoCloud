@@ -2,12 +2,13 @@ package online.pengpeng.tacocloud.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import online.pengpeng.tacocloud.entity.Order;
+import online.pengpeng.tacocloud.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 
@@ -18,19 +19,32 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @RequestMapping("/orders")
+@SessionAttributes("order")
 public class OrderController {
+
+    private OrderRepository orderRepo;
+
+    @Autowired
+    public OrderController(OrderRepository orderRepo) {
+        this.orderRepo = orderRepo;
+    }
+
     @GetMapping("/orderForm")
-    public String orderForm(Model model){
-        model.addAttribute("order", new Order());
+    public String orderForm(@ModelAttribute Order order){
         return "current";
     }
 
     @PostMapping
-    public String processOrder(@Valid Order order, Errors errors) {
+    public String processOrder(
+//            @Valid // 推荐写代码时把验证关上，使用时才启动 TODO
+            @ModelAttribute Order order,
+            Errors errors,
+            SessionStatus sessionStatus) {
         if (errors.hasErrors()){
             return "current";
         }
-        log.info("Order submitted: " + order);
+        orderRepo.save(order);
+        sessionStatus.setComplete();
         return "redirect:/";
     }
 }
