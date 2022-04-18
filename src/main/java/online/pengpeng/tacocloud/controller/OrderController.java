@@ -36,7 +36,7 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(
-//            @Valid // 推荐写代码时把验证关上，使用时才启动 TODO
+            @Valid
             @ModelAttribute Order order,
             Errors errors,
             SessionStatus sessionStatus) {
