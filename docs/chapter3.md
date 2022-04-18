@@ -1,8 +1,8 @@
 # 第三章 使用数据
 
-> * 使用Spring 的jdbcTemplate
-> * 使用SimpleJdbcInsert插入数据
-> * 使用SpringData声明JPA repository
+> 使用Spring 的jdbcTemplate
+> 使用SimpleJdbcInsert插入数据
+> 使用SpringData声明JPA repository
 
 ## 1️⃣使用JDBC读取和写入数据
 
@@ -247,7 +247,7 @@
 
   除了Ingredient表之外，还需要其他的⼀些表来保存订单和设计信息
 
-  ![ER Diagram](images/chapter3_ER.png)
+  ![Untitled](%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%2096a65/Untitled.png)
 
   Ingredient：保存配料信息。 Taco：保存taco设计相关的信息。 Taco_Ingredients：Taco中的每⾏数据都对应⼀⾏或多⾏，将
   taco和与之相关的配料映射在⼀起。 Taco_Order：保存必要的订单细节。 Taco_Order_Tacos：Taco_Order中的每⾏数据都对应⼀⾏或多⾏将订单和与之相关的taco映射在⼀起。
@@ -442,7 +442,7 @@
 
   将TacoRepository注入到DesignTacoController中，并在保存taco的时候调用它。
 
-    - DesignTacoController注入TacoRepositoy
+    - DesignTacoController注入TacoRepository
 
       ```java
       private final TacoRepository designRepository;
@@ -643,4 +643,242 @@
 
 ## 2️⃣使用Spring Data JPA持久化数据
 
+Spring Data是⼀个⾮常⼤的伞形项⽬，由多个⼦项⽬组成，其中 ⼤多数⼦项⽬都关注对不同的数据库类型进⾏数据持久化。⽐较流⾏的 ⼏个Spring Data项⽬包括：
+
+- Spring Data JPA：基于关系型数据库进⾏JPA持久化。
+
+- Spring Data MongoDB：持久化到Mongo⽂档数据库。
+
+- Spring Data Neo4j：持久化到Neo4j图数据库。
+
+- Spring Data Redis：持久化到Redis key-value存储。
+
+- Spring Data Cassandra：持久化到Cassandra数据库。
+
+- 1️⃣添加SpringDataJPA到项目中
+
+  Spring Boot应⽤可以通过JPA starter来添加Spring Data JPA。 这个starter依赖不仅会引⼊Spring Data JPA，还会传递性地将Hibernate作为JPA实现引⼊进来
+
+  ```xml
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>
+  ```
+
+  如果想要使用不同那个JPA实现，那么需要先将Hibernate依赖排除出去并将选择的JPA库包含进来
+
+    - 使用EclipseLink代替Hibernate
+
+      ```xml
+      <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-data-jpa</artifactId>
+           <exclusions>
+               <exclusion>
+                   <artifactId>hibernate-entitymanager</artifactId>
+                   <groupId>org.hibernate</groupId>
+               </exclusion>
+           </exclusions>
+          </dependency>
+          <dependency>
+           <groupId>org.eclipse.persistence</groupId>
+           <artifactId>eclipselink</artifactId>
+           <version>2.5.2</version>
+      </dependency>
+      ```
+
+- 2️⃣将领域对象标注为实体
+
+    - Ingredient
+
+      ```java
+      package online.pengpeng.tacocloud.entity;
+      
+      import lombok.AccessLevel;
+      import lombok.Data;
+      import lombok.NoArgsConstructor;
+      import lombok.RequiredArgsConstructor;
+      
+      import javax.persistence.Entity;
+      import javax.persistence.Id;
+      
+      @Data
+      @RequiredArgsConstructor
+      @NoArgsConstructor(force=true)
+      @Entity
+      public class Ingredient {
+          @Id
+          private final String id;
+          private final String name;
+          private final Type type;
+      
+          public static enum Type {
+              WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+          }
+      }
+      ```
+
+  为了将Ingredient声明为JPA实体，它必须添加 [Entity](https://www.notion.so/Entity-5181547376c7450595fb335764c9c6e5) 注解，它的id属性需要使用 [Id](https://www.notion.so/Id-dbe46874603f414b97f1dc67df778b09) 注解，以便于将其指定为数据库中唯一标识该实体的属性。
+
+  [NoArgsConstructor](https://www.notion.so/NoArgsConstructor-9d317b2bda5a4be7863122ef32ab860f) 用来为JPA添加一个无参的构造器，并可以通过设置access属性为AccessLevel.PRIVATE将其变成私有的（这里不需要），同时设置fore为true来保证final属性能正确注入。 [Data](https://www.notion.so/Data-035df24c19a14908b8f83a9c0250740b) 会自动为我们添加一个有参构造函数，但是如果添加了  NoArgsConstructor之后就会自动取消（和java默认的构造函数一样），所以如果需要有参构造需要添加一个 [RequiredArgsConstructor](https://www.notion.so/RequiredArgsConstructor-1b459e65d7d7426bbbb92bd806e6c985)
+
+    - Taco
+
+      ```java
+      package online.pengpeng.tacocloud.entity;
+      
+      import lombok.Data;
+      import lombok.Generated;
+      import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
+      
+      import javax.persistence.*;
+      import javax.validation.constraints.NotNull;
+      import javax.validation.constraints.Size;
+      import java.util.ArrayList;
+      import java.util.Date;
+      import java.util.List;
+      
+      @Data
+      @Entity
+      public class Taco {
+      
+          @Id
+          @GeneratedValue(strategy= GenerationType.AUTO)
+          private Long id;
+      
+          private Date createdAt;
+      
+          @NotNull
+          @Size(min=5, message="Name must be at least 5 characters long")
+          private String name;
+      
+          @ManyToMany(targetEntity = Ingredient.class)
+          @Size(min=1, message="You must choose at least 1 ingredients")
+          private List<Ingredient>  ingredients;
+      
+          @PrePersist
+          void createdAt(){
+              this.createdAt = new Date();
+          }
+      }
+      ```
+
+  Taco类现在添加了@Entity注解，并为其id属性添加了@Id注解。因为我们要依赖数据库⾃动⽣成ID值，所以在这 ⾥还为id属性设置了 [GeneratedValue](https://www.notion.so/GeneratedValue-53c0ed17ba2446b3893b5c7c24b3ab36) ，将它的strategy设置为AUTO,为了声明Taco与其关联的Ingredient列表之间的关系，我们为ingredients添加了 [ManyToMany](https://www.notion.so/ManyToMany-49cc11deee2642f8843343b5fa66d4f1) 注解。每个Taco可以有多个Ingredient，⽽每个Ingredient可以是多个Taco的组成部分。Taco持久化之前, 会调用带有 [Prepersist](https://www.notion.so/Prepersist-34f0c7655c8c4a14b4bbd9ff648b7c7d) 注解的方法，使⽤这个⽅法将createdAt设置为当前的⽇期和时间
+
+  同理，改变Order
+
+    - Order
+
+      ```java
+      @Data
+      @Entity
+      @Table(name = "Taco_Order")
+      public class Order implements Serializable {
+      
+          private static final long serialVersionUID = 1L;
+      
+          @Id
+          @GeneratedValue(strategy = GenerationType.AUTO)
+          private Long id;
+          private Date placeAt;
+          @ManyToMany(targetEntity = Taco.class)
+          private List<Taco> tacos;
+      
+      // ...
+      
+          @PrePersist
+          void placeAt() {
+              this.placeAt = new Date();
+          }
+      }
+      ```
+
+  使用 [Table](https://www.notion.so/Table-bded9e3aaa6445ed92af1ac134d99ff7) 注解来对Jpa的表的名字起别名，因为Order是sql关键字
+
+- 3️⃣声明JPA repository
+
+  使用Spring Data，我们可以扩展CrudRepository接⼝
+
+  ```java
+  public interface IngredientRepository
+          extends CrudRepository<Ingredient, String> {
+  }
+  ```
+
+  CrudRepository定义了很多⽤于CRUD（创建、读取、更新、删 除）操作的⽅法，它是参数化的，第⼀个参数是repository要持 久化的实体类型，第⼆个参数是实体ID属性的类型。对于IngredientRepository来说，参数应该是Ingredient和String。
+
+  ```java
+  public interface TacoRepository
+          extends CrudRepository<Taco, Long> {
+  }
+  ```
+
+  ```java
+  public interface OrderRepository
+          extends CrudRepository<Order, Long> {
+  }
+  ```
+
+  Spring Data JPA的好处是根本就不⽤编写实现类，当应⽤启动的时候，Spring Data JPA会在运⾏期⾃动⽣成实现类。只需要像使⽤基于JDBC的 实现那样将它们注⼊控制器中就可以了。
+
+- 4️⃣自定义JPA repository
+
+  假设除了CrudRepository提供的基本CRUD操作之外，我们还需 要获取投递到指定邮编（Zip）的订单。实际上，我们只需要添加如下 的⽅法声明到OrderRepository中，这个问题就解决了：
+
+  ```java
+  List<Order> findAllByZip(String zip);
+  ```
+
+  当创建repository实现的时候，Spring Data会检查repository接 ⼝的所有⽅法，解析⽅法的名称，并基于被持久化的对象来试图推测⽅ 法的⽬的。本质上，Spring Data定义了⼀组⼩型的领域特定语⾔ （Domain-Specific Language，DSL），在这⾥持久化的细节都是 通过repository⽅法的签名来描述的。
+
+  repository⽅法是由⼀个动词、⼀个可选的主 题（Subject）、关键词By以及⼀个断⾔所组成的。
+
+  ```java
+  List<Order> readOrdersByZipAndPlaceAtBetween(
+              String zip, Date startDate, Date endDate
+      );
+  ```
+
+  ![Untitled](%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%2096a65/Untitled%201.png)
+
+  除了Equals和Between操作之外，Spring Data⽅法签名还能包 括如下的操作符：
+  IsAfter、After、IsGreaterThan、GreaterThan
+  IsGreaterThanEqual、GreaterThanEqual
+  IsBefore、Before、IsLessThan、LessThan
+  IsLessThanEqual、LessThanEqual
+  IsBetween、Between
+  IsNull、Null
+  IsNotNull、NotNull
+  IsIn、In
+  IsNotIn、NotIn
+  IsStartingWith、StartingWith、StartsWith
+  IsEndingWith、EndingWith、EndsWith
+  IsContaining、Containing、Contains
+  IsLike、Like
+  IsNotLike、NotLike
+  IsTrue、True
+  IsFalse、False
+  Is、Equals
+  IsNot、Not
+  IgnoringCase、IgnoresCase
+
+  作为IgnoringCase/IgnoresCase的替代⽅案，我们还可以在⽅法 上添加AllIgnoringCase或AllIgnoresCase，这样它就会忽略所有
+  String对⽐的⼤⼩写。
+
+  最后，我们还可以在⽅法名称的结尾处添加OrderBy，实现结果集根据某个列排序。
+
+  尽管⽅法名称约定对于相对简单的查询⾮常有⽤，但是，不难想象，对于更为复杂的查询，⽅法名可能会⾯临失控的⻛险。在这种情况下，可以将⽅法定义为任何你想要的名称，并为其添加@Query注解， 从⽽明确指明⽅法调⽤时要执⾏的查询
+
+  ```java
+  @Query("select o from Order o where o.city='Seattle'")
+      List<Order> readOrdersInSeattle();
+  ```
+
+  JPA没有实现我不知道是哪里的问题，找了好久找不到，不找了。
+
 ## 3️⃣ 小结
+
+- Spring的JdbcTemplate能够极⼤地简化JDBC的使⽤。
+- 在我们需要知道数据库所⽣成的ID值时，可以组合使⽤ PreparedStatementCreator和KeyHolder。
+- 为了简化数据的插⼊，可以使⽤SimpleJdbcInsert。
+- Spring Data JPA能够极⼤地简化JPA持久化，我们只需编写 repository接⼝即可
