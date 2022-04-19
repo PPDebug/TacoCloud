@@ -839,7 +839,7 @@ Spring Data是⼀个⾮常⼤的伞形项⽬，由多个⼦项⽬组成，其中
       );
   ```
 
-  ![Untitled](%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%2096a65/Untitled%201.png)
+  ![jpa-feature](images/chapter3-jpa.png)
 
   除了Equals和Between操作之外，Spring Data⽅法签名还能包 括如下的操作符：
   IsAfter、After、IsGreaterThan、GreaterThan
@@ -874,7 +874,8 @@ Spring Data是⼀个⾮常⼤的伞形项⽬，由多个⼦项⽬组成，其中
       List<Order> readOrdersInSeattle();
   ```
 
-  JPA没有实现我不知道是哪里的问题，找了好久找不到，不找了。
+  ~~JPA没有实现我不知道是哪里的问题，找了好久找不到，不找了。~~
+  使用mysql作为数据源，然后改了一下thymeleaf模板好像就好了，只能说是不会用H2.
 
 ## 3️⃣ 小结
 
