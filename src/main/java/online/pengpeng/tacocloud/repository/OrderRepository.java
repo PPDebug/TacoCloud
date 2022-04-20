@@ -1,6 +1,8 @@
 package online.pengpeng.tacocloud.repository;
 
 import online.pengpeng.tacocloud.entity.Order;
+import online.pengpeng.tacocloud.entity.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -20,4 +22,7 @@ public interface OrderRepository
 
     @Query("select o from Order o where o.city='Seattle'")
     List<Order> readOrdersInSeattle();
+
+    List<Order> findByUserOrderByPlaceAtDesc(User user, Pageable pageable);
+
 }

@@ -1,3 +1,10 @@
+#server:
+#  port: 8443
+#  ssl:
+#    key-store: classpath:ssl/mykeys.jks
+#    key-store-password: pengpeng
+#    key-password: pengpeng
+
 spring:
   thymeleaf:
     cache: false
@@ -13,4 +20,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+taco:
+  orders:
+    pageSize: 20
+
 

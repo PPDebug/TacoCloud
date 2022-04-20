@@ -21,14 +21,12 @@ git checkout chapter1  # 切换到chapter1标签对应的版本
 * [x] [chapter1 spring起步](docs/chapter1.md) 
 * [x] [chapter2 开发Web应用](docs/chapter2.md) 
 * [x] [chapter3 使用数据](docs/chapter3.md) 
-* [x] [chapter4 保护Spring](docs/chapter4.md) 🚩目前位于这里，继续加油哦💪
+* [x] [chapter4 保护Spring](docs/chapter4.md) 
+* [x] [chapter5 使用配置属性](docs/chapter5.md) 🚩目前位于这里，继续加油哦💪
 > **本章内容**
-> * 自动配置Spring Security
-> * 设置自定义的用户存储
-> * 自定义登录页
-> * 防范CSRF攻击
-> * 知道用户是谁
-* [ ] [chapter5 使用配置属性]
+> * 细颗粒度的自动装配bean
+> * 将配置属性应用到应用组件上
+> * 使用Spring profile
 
 **第二部分 Spring集成** 🈴
 * [ ] [chapter6 创建REST服务]
