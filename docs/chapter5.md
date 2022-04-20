@@ -46,7 +46,7 @@ Spring中有两种不同(但相关)的配置：
     - 命令行参数
     - 应用属性配置文件
 
-  ![chapter5-configuration](%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%20516bba997a17432c923c7a05a0b7b5c7/Untitled.png)
+  ![chapter5-configuration](images/chapter5-properties.png)
 
   chapter5-configuration
 
