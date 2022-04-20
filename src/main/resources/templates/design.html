@@ -12,6 +12,7 @@
     <img th:src="@{/images/TacoCloud.png}"/>
 
     <form method="POST" th:object="${design}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <div class="grid">
             <div class="grid">
                 <div class="ingredient-group" id="wraps">

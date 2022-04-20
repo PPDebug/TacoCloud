@@ -3,6 +3,7 @@ package online.pengpeng.tacocloud.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -30,6 +31,8 @@ public class Order implements Serializable {
     private Date placeAt;
     @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos;
+    @ManyToOne
+    private User user;
 
     @NotBlank(message = "Name is required")
     private String name;
