@@ -4,23 +4,45 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { routes } from './app.routes'
+
 import { AppComponent } from './app.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { HeaderComponent } from './component/header/header.component';
+import { HomeComponent } from './view/home/home.component';
+import { CloudTitleComponent } from './component/cloud-title/cloud-title.component';
+import { LoginComponent } from './view/login/login.component';
+import { RecentsComponent } from './view/recents/recents.component';
+import { SpecialsComponent } from './view/specials/specials.component';
+import { LocationsComponent } from './view/locations/locations.component';
+import { DesignComponent } from './view/design/design.component';
+import { CartComponent } from './view/cart/cart.component';
+import { LittleButtonComponent } from './component/little-button/little-button.component';
+import { BigButtonComponent } from './component/big-button/big-button.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { GroupBoxComponent } from './component/group-box/group-box.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
-    ]),
+    RouterModule.forRoot(routes),
   ],
   declarations: [
     AppComponent,
-    TopBarComponent,
-    ProductListComponent,
+    HeaderComponent,
+    HomeComponent,
+    CloudTitleComponent,
+    LoginComponent,
+    RecentsComponent,
+    SpecialsComponent,
+    LocationsComponent,
+    DesignComponent,
+    CartComponent,
+    LittleButtonComponent,
+    BigButtonComponent,
+    FooterComponent,
+    GroupBoxComponent,
   ],
   bootstrap: [AppComponent],
 })
