@@ -1,6 +1,7 @@
-# TacocloudUi
+# ui-angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
+这个分支主要是用来显示 前后端分离的前端界面的。
+使用的是AngularJS框架，具体启动步骤如下(直接是默认生成的，懒得改了):
 
 ## Development server
 
