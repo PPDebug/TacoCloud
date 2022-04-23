@@ -1,0 +1,12 @@
+div.ingredientsblock {
+    width: 1000px;
+  }
+  
+  input.nameField {
+    font-size: 16pt;
+    background: none;
+    margin-bottom: 3pt;
+    border: none;
+    border-bottom: 1px solid #003366;
+  }
+  

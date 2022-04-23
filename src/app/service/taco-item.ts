@@ -1,7 +1,7 @@
 import { IngredientItem } from "./ingredient-item";
 
 export class TacoItem{
-    name: String | undefined;
+    name = "";
     ingredients: IngredientItem[] = [];
 
     constructor(){    }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
-  selector: 'app-big-button',
+  selector: 'big-button',
   templateUrl: './big-button.component.html',
   styleUrls: ['./big-button.component.css']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
-  selector: 'app-group-box',
+  selector: 'group-box',
   templateUrl: './group-box.component.html',
   styleUrls: ['./group-box.component.css']
 })

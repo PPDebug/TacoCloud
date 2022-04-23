@@ -1,0 +1,42 @@
+[
+    {
+        "name": "beef taco",
+        "ingredients": [
+            {
+                "id": "COTO",
+                "name": "Corn Tortilla",
+                "type": "WRAP" 
+             },
+             {
+                "id": "GRBF",
+                "name": "Ground Beef",
+                "type": "PROTEIN" 
+             },
+             {
+                "id": "CARN",
+                "name": "Carnitas",
+                "type": "PROTEIN" 
+             }
+        ]
+    },
+    {
+        "name": "Carnitas",
+        "ingredients": [
+            {
+                "id": "COTO",
+                "name": "Corn Tortilla",
+                "type": "WRAP" 
+             },
+            {
+                "id": "CHED",
+                "name": "Cheddar",
+                "type": "CHEESE" 
+             },
+             {
+                "id": "JACK",
+                "name": "Monterrey Jack",
+                "type": "CHEESE" 
+             }
+        ]
+    }
+]

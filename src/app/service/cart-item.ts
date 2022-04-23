@@ -1,9 +1,10 @@
+import { TacoItem } from "./taco-item";
 export class CartItem{
     quantity = 1;
 
-    taco: any;
+    taco: TacoItem;
 
-    constructor(taco: any){
+    constructor(taco: TacoItem){
         this.taco = taco;
     }
 

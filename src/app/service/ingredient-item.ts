@@ -4,7 +4,7 @@ export class IngredientItem{
 
     type: String | undefined;
 
-    tags: String | undefined;
+    id: String | undefined;
 
     constrcutor(){
 

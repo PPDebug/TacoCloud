@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app.routes'
+
+import { NonWrapsPipe } from './view/recents/non-wraps-pipe';
+import { WrapsPipe } from './view/recents/wraps-pipe';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -26,6 +29,7 @@ import { GroupBoxComponent } from './component/group-box/group-box.component';
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(routes),
   ],
   declarations: [
@@ -35,6 +39,8 @@ import { GroupBoxComponent } from './component/group-box/group-box.component';
     CloudTitleComponent,
     LoginComponent,
     RecentsComponent,
+    NonWrapsPipe,
+    WrapsPipe,
     SpecialsComponent,
     LocationsComponent,
     DesignComponent,
