@@ -81,6 +81,12 @@
 <!--            <groupId>com.unboundid</groupId>-->
 <!--            <artifactId>unboundid-ldapsdk</artifactId>-->
 <!--        </dependency>-->
+
+        <!--enable the HATEOAS-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
