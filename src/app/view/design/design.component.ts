@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { TacoItem } from 'src/app/service/taco-item';
 import { IngredientItem } from 'src/app/service/ingredient-item';
 import { ApiService } from 'src/app/service/api.service';
+
 @Component({
   selector: 'app-design',
   templateUrl: './design.component.html',
@@ -20,12 +22,15 @@ export class DesignComponent implements OnInit {
 
   private taco = new TacoItem();
 
-  constructor(private api: ApiService) {
+  constructor(
+    private router: Router,
+    private api: ApiService
+    ) {
   }
 
   ngOnInit(){
     // get Ingredient from server:
-    this.api.getCommon("/design/ingredients")
+    this.api.getCommon("design/ingredients")
       .subscribe( (data ) => {
         this.allIngredients = data;
         this.wraps = this.allIngredients.filter( (w: IngredientItem) => w.type === 'WRAP');
@@ -47,10 +52,10 @@ export class DesignComponent implements OnInit {
 
   onSubmit() {
     this.taco.name = this.tacoName;
-    window.alert("Submit the design");
-    this.api.postCommon("/design", this.taco)
+    this.api.postCommon("design", this.taco)
       .subscribe(res => {
         window.alert("Success");
+        this.router.navigateByUrl("/recents")
       })
   }
 

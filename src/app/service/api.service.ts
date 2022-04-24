@@ -6,22 +6,27 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class ApiService {
 
-  rootUrl = "http://localhost:8080/test";
+  rootUrl = "http://localhost:8080/rest/";
+
+  private headers = new HttpHeaders()
+  // content-type
+  .append("content-type", "application/json")
+  // COSR
+  .append("Access-Control-Allow-Origin","*")
+  .append("Access-Control-Allow-Methods","GET, POST, PUT, OPTIONS, PATCH, DELETE")
+  .append("Access-Control-Allow-Headers","X-Requested-With, content-type");
 
   constructor(
     private httpClient: HttpClient
     ) { }
 
   public getCommon(subUrl: String){
-    // return this.httpClient.get(this.rootUrl + subUrl, {
-    //   headers: new HttpHeaders()
-    //     .append("Access-Control-Allow-Origin","*")
-    //     .append("Access-Control-Allow-Methods","GET, POST, PUT, OPTIONS, PATCH, DELETE")
-    //     .append("Access-Control-Allow-Headers","X-Requested-With, content-type")
-    //     ,
-    // });
+    return this.httpClient.get(this.rootUrl + subUrl, 
+      {
+      headers: this.headers,
+    });
     // for test:
-    return this.httpClient.get("/assets/" + subUrl + ".json");
+    // return this.httpClient.get("/assets/mocks/" + subUrl + ".json");
   }
 
   public postCommon(subUrl:String, data: any) {
@@ -30,7 +35,7 @@ export class ApiService {
       this.rootUrl + subUrl,
       data,
       {
-        headers: new HttpHeaders().set("content-type", "application/json")
+        headers: this.headers
       }
     );
   }

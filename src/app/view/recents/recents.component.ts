@@ -16,7 +16,7 @@ export class RecentsComponent implements OnInit {
   recentTacos: any;
 
   ngOnInit(): void {
-    this.api.getCommon("design/recents")
+    this.api.getCommon("design/recent")
     .subscribe( res => {
       this.recentTacos = res;
     })
