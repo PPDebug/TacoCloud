@@ -18,8 +18,8 @@ import javax.sql.DataSource;
  * @author pengpeng
  * @date 2022/4/19
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -80,12 +80,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-            .antMatchers("/design", "/orders")
+                .authorizeRequests()
+                .antMatchers("/design", "/orders")
                 .hasRole("USER")
-            .antMatchers("/", "/**").permitAll()
+                .antMatchers("/", "/**").permitAll()
 
-            .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
