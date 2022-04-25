@@ -25,13 +25,11 @@ git checkout chapter1  # 切换到chapter1标签对应的版本
 * [x] [chapter5 使用配置属性](docs/chapter5.md) 
 
 **第二部分 Spring集成** 🈴
-> **注意📢: 这开始不再使用thymeleaf模板渲染, 转变到前后端分离**
-* [x] [chapter6 创建REST服务](docs/chapter6.md) 🚩目前位于这里，继续加油哦💪
+* [x] [chapter6 创建REST服务](docs/chapter6.md)
+* [x] [chapter7 消费REST服务](docs/chapter7.md) 🚩目前位于这里，继续加油哦💪
 > **本章内容**
-> * 在Spring MVC中定义REST端点 
-> * 启动超链接REST资源 
-> * 自动化基于repository的REST端点
-* [ ] [chapter7 消费REST服务]
+> * 使用RestTemplate消费RestAPI 
+> * 使用Traverson导航超媒体API
 * [ ] [chapter8 发送异步消息]
 * [ ] [chapter9 Spring集成]
 
