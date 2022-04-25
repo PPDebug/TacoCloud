@@ -6,12 +6,12 @@
 > 自动化基于repository的REST端点
 
 <aside>
-⛔ 注意：这一部分开始采用前后端分离架构，并使用angular来创建一个前端的单页面应用(Single Page Application， SPA)，相关的代码放在本仓库的ui-angular分支，是从之前的较旧的版本重构过来的，然后对angualr不是很熟悉，没有进行测试，所以可能有些错误。
+⛔ 注意：这一部分开始采用前后端分离架构，并使用angular来创建一个前端的单页面应用(Single Page Application， SPA)，相关的代码放在本仓库的ui-angular分支，是从之前的较旧的版本重构过来的，然后对angular不是很熟悉，没有进行测试，所以可能有些错误。
 
 
 </aside>
 
-![taco-cloud-ui](%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%88%9B%E5%BB%BAREST%E6%9C%8D%E5%8A%A1%203a6cb28ac401476484b2f2c05dce39d2/Untitled.png)
+![taco-cloud-ui](images/chapter6-taco-cloud-ui.png)
 
 taco-cloud-ui
 
@@ -23,7 +23,7 @@ taco-cloud-ui
 
   现在需要添加一个功能，即在单击Latest Designs链接时显示最近创建的taco列表:
 
-    - angualar的RecentsComponent.ts的代码如下
+    - angular的RecentsComponent.ts的代码如下
 
       ```jsx
       import { Component, OnInit, Injectable } from '@angular/core';
