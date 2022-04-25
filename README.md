@@ -22,14 +22,15 @@ git checkout chapter1  # 切换到chapter1标签对应的版本
 * [x] [chapter2 开发Web应用](docs/chapter2.md) 
 * [x] [chapter3 使用数据](docs/chapter3.md) 
 * [x] [chapter4 保护Spring](docs/chapter4.md) 
-* [x] [chapter5 使用配置属性](docs/chapter5.md) 🚩目前位于这里，继续加油哦💪
-> **本章内容**
-> * 细颗粒度的自动装配bean
-> * 将配置属性应用到应用组件上
-> * 使用Spring profile
+* [x] [chapter5 使用配置属性](docs/chapter5.md) 
 
 **第二部分 Spring集成** 🈴
-* [ ] [chapter6 创建REST服务]
+> **注意📢: 这开始不再使用thymeleaf模板渲染, 转变到前后端分离**
+* [x] [chapter6 创建REST服务](docs/chapter6.md) 🚩目前位于这里，继续加油哦💪
+> **本章内容**
+> * 在Spring MVC中定义REST端点 
+> * 启动超链接REST资源 
+> * 自动化基于repository的REST端点
 * [ ] [chapter7 消费REST服务]
 * [ ] [chapter8 发送异步消息]
 * [ ] [chapter9 Spring集成]
